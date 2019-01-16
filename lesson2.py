@@ -1,138 +1,92 @@
-##Домашние задание. Урок 2
-##Easy
-import random
-import math
-import datetime
-
-listEasy = ["яблоко", "банан", "киви", "арбуз"]
-listNormal = ['2', '-5', '8', '9', '-25', '25', '4']
-
-print("Уровень Easy")
-
-#Задача 1
-print("Задача 1")
-print(listEasy)
-
-for value in listEasy:
-    index = listEasy.index(value)
-    print(str(index)+'.'+str.rjust(value, 10, " "))
+# Задача 1.
+# Написать программу, которая будет складывать, вычитать, умножать или делить два числа.
+# Числа и знак операции вводятся пользователем.
+# После выполнения вычисления программа не должна завершаться, а должна запрашивать новые данные для вычислений.
+# Завершение программы должно выполняться при вводе символа '0' в качестве знака операции.
+# Если пользователь вводит неверный знак (не '0', '+', '-', '*', '/'), то программа должна сообщать ему об ошибке
+# и снова запрашивать знак операции. Также сообщать пользователю о невозможности деления на ноль,
+# если он ввел 0 в качестве делителя.
 
 
-#Задача 2
-print("\n ---------------------------------------\n")
-print("Задача 2")
-
-fst_list = list()
-snd_lst = list()
-idx = 0
-
-while idx < 10:
-    idx += 1
-    fst_list.insert(idx, random.randint(0, 100))
-    snd_lst.insert(idx, random.randint(0, 100))
+def division(a: float, b: float):
+    return a/b
 
 
-print(f'frist list \n {fst_list}')
-print(f'second list \n {snd_lst}')
-print(f'first list - second list \n {list(set(fst_list)-set(snd_lst))}')
+def simple_calculator():
+    operation = input("Выберите совершаемую операцию между числами А и B \n"
+                      "(Доступные: +, -, *, / , 0 - выход)")
 
-#Задача 3
-print("\n ---------------------------------------\n")
-print("Задача 3")
+    opers = {'+': float.__add__,
+             '-': float.__sub__,
+             '*': float.__mul__,
+             '/': division}
 
-fst_list = list()
-snd_lst = list()
-idx = 0
-while idx < 10:
-    idx += 1
-    fst_list.insert(idx, random.randint(0, 100))
-idx = 0
-for x in fst_list:
+    if operation != '0':
+        num1 = input("Введите число А")
+        num2 = input("Введите число B")
 
-    if (int(x) % 2) == 0:
-        snd_lst.insert(idx, int(x) / 4)
-    else:
-        snd_lst.insert(idx, int(x) * 2)
-    idx += 1
-
-print(f'frist list \n {fst_list}')
-print(f'second list \n {snd_lst}')
+        if len(operation) == 1 and opers.__contains__(operation):
+            print(opers[operation](float(num1), float(num2)))
+        else:
+            print("Введена не корректная операция")
+        simple_calculator()
+    elif operation == '0':
+        return
 
 
+#simple_calculator()
 
-print("\n ----------------Normal Level-----------------------\n")
-## Задача 1
-print("\n Задача 1")
+# Задача 2 и 3.
+# 2.Посчитать четные и нечетные цифры введенного натурального числа.
+# Например, если введено число 34560, то у него 3 четные цифры (4, 6 и 0) и 2 нечетные (3 и 5).
+# 3.Сформировать из введенного числа обратное по порядку входящих в него цифр и вывести на экран.
+# Например, если введено число 3486, то надо вывести число 6843.
 
-fst_list = list()
-snd_lst = list()
-idx = 0
-while idx < 10:
-    idx += 1
-    fst_list.insert(idx, random.randint(0, 100))
+digit = input("Введите произвольное число")
+count = 0
 
-print(fst_list)
-idx = 0
-for x in fst_list:
-    if math.modf(math.sqrt(int(x)))[0] == 0:
-        print(f'Нет дробной части {math.modf(math.sqrt(int(x)))}. Результат корня: {math.sqrt(int(x))}')
-    else:
-        print(f'Есть дробная часть {math.modf(math.sqrt(int(x)))}. Результат корня: {math.sqrt(int(x))}')
-    idx += 1
+if digit.isdigit():
+    for a in digit:
+        count += 1 if float(a) % 2.0 != 0 else 0
+    print(f"Введено число: {digit}. \n"
+          f"Количество нечетных симоволов {count}")
+    bstr = list()
+#задача 3
+    for i in range(len(digit)-1, -1, -1):
+          bstr.append(digit[i])
+    print(f"Задом на перед:) {str(bstr)} ")
+else:
+    print(f"Введена символьная строка вместо числа {digit}")
 
-## Задача 2
-print("\n Задача 2")
-date = datetime.date.today().strftime("%d.%m.%Y")
+# Задача 4
+dim = (1, -0.5, 0.25, -0.125)
+dsum = 0.0
+print(f"\n Есть ряд елементов {dim}")
+n = input("Введите количество елментов для получения их суммы")
 
-day_list = ['первое', 'второе', 'третье', 'четвёртое',
-            'пятое', 'шестое', 'седьмое', 'восьмое',
-            'девятое', 'десятое', 'одиннадцатое', 'двенадцатое',
-            'тринадцатое', 'четырнадцатое', 'пятнадцатое', 'шестнадцатое',
-            'семнадцатое', 'восемнадцатое', 'девятнадцатое', 'двадцатое',
-            'двадцать первое', 'двадцать второе', 'двадцать третье',
-            'двадацать четвёртое', 'двадцать пятое', 'двадцать шестое',
-            'двадцать седьмое', 'двадцать восьмое', 'двадцать девятое',
-            'тридцатое', 'тридцать первое']
-month_list = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
+if n.isdigit() and len(n) == 1:
+    for a in range(0, int(n)):
+        dsum += float(dim[a])
+    print(f"Сумма {len(n)} елементов {dsum}")
 
-print(date)
-date_list = str(date).split('.')
-print(date_list)
+# Task 5
+dim = list()
+for n in range(32, 128):
+    dim.append(chr(n))
 
-result_date_string = (day_list[int(date_list[0]) - 1] + ' ' + month_list[int(date_list[1]) - 1] + ' ' + date_list[2] + ' года')
-print(result_date_string)
+cnt = len(dim)
+flg = 0
+print(len(dim))
+while cnt > 0:
+    plist = list()
+    b = flg
+    for i in range(b, b+10):
+        if i < len(dim):
+            plist.append(f"{ord(dim[i])}:{dim[i]}")
+    print(plist)
+    flg += 10
+    cnt -= 10
 
-##Задача 3
-print("\n Задача 3")
-fst_list = list()
-idx = 0
-n = input("введите количество эелементов в списке")
-if str(n).isdigit():
-    while idx < int(n):
-        idx += 1
-        fst_list.insert(idx, random.randint(-100, 100))
-print(fst_list)
 
-## Задача 4
-print("\n Задача 4")
 
-fst_list = list()
-snd_lst = list()
-idx = 0
 
-while idx < 10:
-    idx += 1
-    fst_list.insert(idx, random.randint(0, 100))
-    snd_lst.insert(idx, random.randint(0, 100))
-
-fst_list = [1, 2, 3, 4, 5, 5, 2, 2, 6, 3]
-print(fst_list)
-print(f'frist list \n {set(fst_list)}')
-
-snd_lst = list()
-
-for x in fst_list:
-    if fst_list.count(x) == 1:
-        snd_lst.append(x)
-print(f'second list \n {snd_lst}')
- 
